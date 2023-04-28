@@ -1,0 +1,148 @@
+mixed-port: 7890
+allow-lan: false
+external-controller: 127.0.0.1:58308
+secret: 151078ab-90c7-43fb-ad4e-249671c9cfe7
+proxy-providers:
+  oslook:
+    type: http
+    path: ./profiles/proxies/oslook.yaml
+    url: https://cdn.jsdelivr.net/gh/oslook/clash-freenode@main/clash.yaml
+    interval: 3600
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 300
+  xieshunxi1:
+    type: http
+    path: ./profiles/proxies/xieshunxi1.yaml
+    url: https://raw.githubusercontent.com/xieshunxi1/subscribe_clash_v2ray/main/subscribe/clash.yml
+    interval: 3600
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 300
+rule-providers:
+  reject:
+    type: http
+    behavior: domain
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt
+    path: ./ruleset/reject.yaml
+    interval: 86400
+  icloud:
+    type: http
+    behavior: domain
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt
+    path: ./ruleset/icloud.yaml
+    interval: 86400
+  apple:
+    type: http
+    behavior: domain
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt
+    path: ./ruleset/apple.yaml
+    interval: 86400
+  google:
+    type: http
+    behavior: domain
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/google.txt
+    path: ./ruleset/google.yaml
+    interval: 86400
+  proxy:
+    type: http
+    behavior: domain
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt
+    path: ./ruleset/proxy.yaml
+    interval: 86400
+  direct:
+    type: http
+    behavior: domain
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt
+    path: ./ruleset/direct.yaml
+    interval: 86400
+  private:
+    type: http
+    behavior: domain
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt
+    path: ./ruleset/private.yaml
+    interval: 86400
+  gfw:
+    type: http
+    behavior: domain
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt
+    path: ./ruleset/gfw.yaml
+    interval: 86400
+  greatfire:
+    type: http
+    behavior: domain
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/greatfire.txt
+    path: ./ruleset/greatfire.yaml
+    interval: 86400
+  tld-not-cn:
+    type: http
+    behavior: domain
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/tld-not-cn.txt
+    path: ./ruleset/tld-not-cn.yaml
+    interval: 86400
+  telegramcidr:
+    type: http
+    behavior: ipcidr
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt
+    path: ./ruleset/telegramcidr.yaml
+    interval: 86400
+  cncidr:
+    type: http
+    behavior: ipcidr
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt
+    path: ./ruleset/cncidr.yaml
+    interval: 86400
+  lancidr:
+    type: http
+    behavior: ipcidr
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt
+    path: ./ruleset/lancidr.yaml
+    interval: 86400
+  applications:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt
+    path: ./ruleset/applications.yaml
+    interval: 86400
+proxy-groups:
+  - name: OSLOOK
+    type: load-balance
+    url: http://www.gstatic.com/generate_204
+    interval: 3600
+    strategy: consistent-hashing
+    filter: ^.*(HK|US|SG|RU|JP|NL|DE|KR|IN).*$
+    use:
+      - oslook
+      - xieshunxi1
+  - name: CN
+    type: select
+    url: http://connectivitycheck.platform.hicloud.com/generate_204
+    interval: 3600
+    filter: ^.*CN.*$
+    use:
+      - oslook
+      - xieshunxi1
+rules:
+  - DOMAIN-SUFFIX,junmeitu.com,OSLOOK
+  - DOMAIN-SUFFIX,lmmbtc.com,OSLOOK
+  - DOMAIN,tgsou.me,OSLOOK
+  - DOMAIN-SUFFIX,twitter.com,OSLOOK
+  - DOMAIN-SUFFIX,twimg.com,OSLOOK
+  - DOMAIN-KEYWORD,tiktok,OSLOOK
+  - DOMAIN-SUFFIX,jieduanxin.com,OSLOOK
+  - DOMAIN-SUFFIX,mytempsms.com,OSLOOK
+  - DOMAIN,smsjisu.com,OSLOOK
+  - DOMAIN,cdn.jsdelivr.net,DIRECT
+  - DOMAIN-SUFFIX,bing.com,OSLOOK
+  - RULE-SET,applications,DIRECT
+  - DOMAIN,clash.razord.top,DIRECT
+  - DOMAIN,yacd.haishan.me,DIRECT
+  - RULE-SET,private,DIRECT
+  - RULE-SET,reject,REJECT
+  - RULE-SET,tld-not-cn,OSLOOK
+  - RULE-SET,gfw,OSLOOK
+  - RULE-SET,greatfire,OSLOOK
+  - RULE-SET,telegramcidr,OSLOOK
+  - MATCH,DIRECT
