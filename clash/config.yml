@@ -151,7 +151,7 @@ rules:
   - DOMAIN,yacd.haishan.me,DIRECT
   - RULE-SET,private,DIRECT
   - RULE-SET,reject,REJECT
-  - RULE-SET,tld-not-cn,SELECT
+  # - RULE-SET,tld-not-cn,SELECT
   - RULE-SET,gfw,SELECT
   - RULE-SET,greatfire,SELECT
   - RULE-SET,telegramcidr,SELECT
