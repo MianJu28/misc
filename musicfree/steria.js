@@ -32,6 +32,38 @@ module.exports = {
     cacheControl: "cache", // [可选] 插件的缓存控制方案，用来缓存插件信息
     version: "0.1.0", // [可选] 插件版本号
     defaultSearchType: "music", // [可选] 插件在搜索时，首屏默认请求的搜索类型，默认是music。
+    srcUrl: "https://raw.githubusercontent.com/MianJu28/misc/main/musicfree/steria.js",
     /**[可选] 搜索 */
-    search
+    search,
+    async getTopLists(){
+        const data = (await axios.get('https://steria.vplayer.tk/api/tops')).data
+        const tops = []
+        for (let top of data) {
+            tops.push({
+                id: top.id,
+                description: '直播歌切',
+                coverImg: 'https://steria.vplayer.tk/static/images/steria.jpg',
+                title: top.title
+            })
+        }
+        return [{
+            title: "直播歌切",
+            data: tops
+        }]
+    },
+    async getTopListDetail(topListItem){
+        const data = (await axios.get('https://steria.vplayer.tk/api/tops/' + topListItem.title)).data
+        const musics = []
+        for (let music of data.data) {
+            musics.push({
+                id: music.id,
+                title: music.name,
+                artist: '薇Steria',
+                artwork: 'https://steria.vplayer.tk/static/images/steria.jpg',
+                url: music.url
+            })
+        }
+        topListItem.musicList = musics
+        return topListItem
+    }
 }
