@@ -14,7 +14,7 @@ module.exports = {
             data: [{
                 id: 114514,
                 description: '克勾播放器',
-                coverImg: 'https://steria.vplayer.tk/static/images/steria.jpg',
+                coverImg: 'https://i2.hdslb.com/bfs/face/7aad26788e392df1b28ff21793abf7c9a990c6a1.jpg',
                 title: '克勾播放器'
             }]
         }]
@@ -30,8 +30,8 @@ module.exports = {
                 id: i,
                 title: musics[i],
                 artist: '内德维德',
-                artwork: 'https://steria.vplayer.tk/static/images/steria.jpg',
-                url: 'http://clesss.xwbx.ink/audio/' + musics[i]
+                artwork: 'https://i2.hdslb.com/bfs/face/7aad26788e392df1b28ff21793abf7c9a990c6a1.jpg',
+                url: 'http://clesss.xwbx.ink/audio/' + musics[i] + '.mp3'
             })
         }
         // for (let music of musics) {
