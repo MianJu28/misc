@@ -4,7 +4,7 @@ const cheerio = require('cheerio')
 module.exports = {
     platform: "ClessS", // [必选] 插件名，搜索到的结果都会自动带上platform的标记
     cacheControl: "cache", // [可选] 插件的缓存控制方案，用来缓存插件信息
-    version: "0.1.6", // [可选] 插件版本号
+    version: "0.1.7", // [可选] 插件版本号
     defaultSearchType: "music", // [可选] 插件在搜索时，首屏默认请求的搜索类型，默认是music。
     srcUrl: "https://raw.githubusercontent.com/MianJu28/misc/main/musicfree/clesss.js",
     async getTopLists(){
@@ -28,7 +28,7 @@ module.exports = {
                 id: i,
                 title: musics[i],
                 artist: '内德维德',
-                artwork: 'https://steria.vplayer.tk/static/images/steria.jpg',
+                artwork: 'https://i2.hdslb.com/bfs/face/7aad26788e392df1b28ff21793abf7c9a990c6a1.jpg',
                 url: 'http://clesss.xwbx.ink/audio/' + musics[i] + '.mp3'
             })
         }
