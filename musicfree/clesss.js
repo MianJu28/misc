@@ -4,7 +4,7 @@ const cheerio = require('cheerio')
 module.exports = {
     platform: "ClessS", // [必选] 插件名，搜索到的结果都会自动带上platform的标记
     cacheControl: "cache", // [可选] 插件的缓存控制方案，用来缓存插件信息
-    version: "0.1.0", // [可选] 插件版本号
+    version: "0.1.2", // [可选] 插件版本号
     defaultSearchType: "music", // [可选] 插件在搜索时，首屏默认请求的搜索类型，默认是music。
     srcUrl: "https://raw.githubusercontent.com/MianJu28/misc/main/musicfree/clesss.js",
     /**[可选] 搜索 */
