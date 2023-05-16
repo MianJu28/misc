@@ -25,7 +25,7 @@ module.exports = {
         const $ = cheerio.load(rawHtml)
         const musics = JSON.parse($('#data').text())
         // let id = 1
-        for (let i = 0; i < 500; i++) {
+        for (let i = 0; i < musics.length; i++) {
             musicList.push({
                 id: i,
                 title: musics[i],
