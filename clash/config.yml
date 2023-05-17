@@ -3,6 +3,24 @@ allow-lan: false
 external-controller: 127.0.0.1:58308
 secret: 151078ab-90c7-43fb-ad4e-249671c9cfe7
 proxy-providers:
+  anaer:
+    type: http
+    path: ./profiles/proxies/anaer.yaml
+    url: https://raw.iqiq.io/anaer/Sub/main/clash.yaml
+    interval: 3600
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 300
+  ermaozi:
+    type: http
+    path: ./profiles/proxies/ermaozi.yaml
+    url: https://raw.githubusercontent.com/ermaozi/get_subscribe/main/subscribe/clash.yml
+    interval: 3600
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 300
   oslook:
     type: http
     path: ./profiles/proxies/oslook.yaml
@@ -112,18 +130,22 @@ proxy-groups:
     url: http://www.gstatic.com/generate_204
     interval: 3600
     strategy: consistent-hashing
-    filter: ^.*(HK|US|SG|RU|JP|NL|DE|KR|IN).*$
+    # filter: ^.*(HK|US|SG|RU|JP|NL|DE|KR|IN).*$
     use:
-      - oslook
-      - xieshunxi1
+      # - oslook
+      # - xieshunxi1
+      # - ermaozi
+      - anaer
   - name: SELECT
     type: select
     url: http://www.gstatic.com/generate_204
     interval: 3600
-    filter: ^.*(HK|US|SG|RU|JP|NL|DE|KR|IN).*$
+    # filter: ^.*(HK|US|SG|RU|JP|NL|DE|KR|IN|日本|新加坡|塞浦路斯|丹麦|塞尔维亚|乌克兰|伊朗|伯利兹|俄罗斯|印尼|印度).*$
     use:
-      - oslook
-      - xieshunxi1
+      # - oslook
+      # - xieshunxi1
+      # - ermaozi
+      - anaer
     proxies:
       - LOAD-BALANCE
   - name: CN
@@ -135,6 +157,7 @@ proxy-groups:
       - oslook
       - xieshunxi1
 rules:
+  - DOMAIN-SUFFIX,cloudflare.com,SELECT
   - DOMAIN-SUFFIX,junmeitu.com,SELECT
   - DOMAIN-SUFFIX,lmmbtc.com,SELECT
   - DOMAIN,tgsou.me,SELECT
@@ -151,7 +174,6 @@ rules:
   - DOMAIN,yacd.haishan.me,DIRECT
   - RULE-SET,private,DIRECT
   - RULE-SET,reject,REJECT
-  # - RULE-SET,tld-not-cn,SELECT
   - RULE-SET,gfw,SELECT
   - RULE-SET,greatfire,SELECT
   - RULE-SET,telegramcidr,SELECT
