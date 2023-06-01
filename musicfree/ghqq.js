@@ -3,7 +3,7 @@ const axios = require("axios")
 module.exports = {
     platform: "ghqq", // [必选] 插件名，搜索到的结果都会自动带上platform的标记
     cacheControl: "no-cache", // [可选] 插件的缓存控制方案，用来缓存插件信息
-    version: "0.1.2", // [可选] 插件版本号
+    version: "0.1.3", // [可选] 插件版本号
     defaultSearchType: "music", // [可选] 插件在搜索时，首屏默认请求的搜索类型，默认是music。
     srcUrl: "https://raw.githubusercontent.com/MianJu28/misc/main/musicfree/ghqq.js",
     async search(query, page = 1, type) {
@@ -35,18 +35,10 @@ module.exports = {
             data: [], // 不同type媒体类型的列表，即MusicItem[] | AlbumItem[] | ArtistItem[]
         };
     },
-    async getMediaSource(music, quality) {
-        switch (quality) {
-            case 'high':
-                const data = (await axios.get('https://steria.vplayer.tk/ghyy/song/qq/320?songId=' + music.id)).data
-                return {url: data.url}
-            case 'super':
-                const data = (await axios.get('https://steria.vplayer.tk/ghyy/song/qq/flac?songId=' + music.id)).data
-                return {url: data.url}
-            default:
-                const data = (await axios.get('https://steria.vplayer.tk/ghyy/song/qq/128?songId=' + music.id)).data
-                return {url: data.url}
-        }
+    async getMediaSource(music) {
+        let size = music.sizeflac === 1 ? 'flac' : music.size320 === 1 ? '320': '128'
+        const data = (await axios.get('https://steria.vplayer.tk/ghyy/song/qq/'+ size +'?songId=' + music.id)).data
+        return {url: data.url}
     },
     async getMusicInfo(musicItem){
         return musicItem
