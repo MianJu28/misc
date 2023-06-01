@@ -38,13 +38,13 @@ module.exports = {
     async getMediaSource(music, quality) {
         switch (quality) {
             case 'high':
-                const data = (await axios.get('https://steria.vplayer.tk/ghyy/song/qq/320?songId' + music.id)).data
+                const data = (await axios.get('https://steria.vplayer.tk/ghyy/song/qq/320?songId=' + music.id)).data
                 return {url: data.url}
             case 'super':
-                const data = (await axios.get('https://steria.vplayer.tk/ghyy/song/qq/flac?songId' + music.id)).data
+                const data = (await axios.get('https://steria.vplayer.tk/ghyy/song/qq/flac?songId=' + music.id)).data
                 return {url: data.url}
             default:
-                const data = (await axios.get('https://steria.vplayer.tk/ghyy/song/qq/128?songId' + music.id)).data
+                const data = (await axios.get('https://steria.vplayer.tk/ghyy/song/qq/128?songId=' + music.id)).data
                 return {url: data.url}
         }
     }
