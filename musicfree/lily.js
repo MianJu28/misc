@@ -80,7 +80,7 @@ async function getMediaSource(musicItem, quality) {
 
 function formatMusic(item, flag) {
     return {
-        id: item.bvid,
+        id: item.cid,
         aid: item.aid,
         bvid: item.bvid,
         artist: item.artist,
@@ -125,7 +125,7 @@ async function getTopListDetail(topListItem){
 module.exports = {
     platform: "妮莉安Lily",
     appVersion: ">=0.0",
-    version: "0.1.1",
+    version: "0.1.2",
     defaultSearchType: "music",
     cacheControl: "no-cache",
     srcUrl: "https://raw.githubusercontent.com/MianJu28/misc/main/musicfree/lily.js",
