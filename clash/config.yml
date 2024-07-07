@@ -21,24 +21,6 @@ proxy-providers:
       enable: true
       url: http://www.gstatic.com/generate_204
       interval: 300
-  oslook:
-    type: http
-    path: ./profiles/proxies/oslook.yaml
-    url: https://cdn.jsdelivr.net/gh/oslook/clash-freenode@main/clash.yaml
-    interval: 3600
-    health-check:
-      enable: true
-      url: http://www.gstatic.com/generate_204
-      interval: 300
-  xieshunxi1:
-    type: http
-    path: ./profiles/proxies/xieshunxi1.yaml
-    url: https://raw.githubusercontent.com/xieshunxi1/subscribe_clash_v2ray/main/subscribe/clash.yml
-    interval: 3600
-    health-check:
-      enable: true
-      url: http://www.gstatic.com/generate_204
-      interval: 300
 rule-providers:
   reject:
     type: http
@@ -125,29 +107,13 @@ rule-providers:
     path: ./ruleset/applications.yaml
     interval: 86400
 proxy-groups:
-  - name: LOAD-BALANCE
-    type: load-balance
-    url: http://www.gstatic.com/generate_204
-    interval: 3600
-    strategy: consistent-hashing
-    use:
-      - anaer
   - name: SELECT
     type: select
     url: http://www.gstatic.com/generate_204
     interval: 3600
     use:
       - anaer
-    proxies:
-      - LOAD-BALANCE
-  - name: CN
-    type: select
-    url: http://connectivitycheck.platform.hicloud.com/generate_204
-    interval: 3600
-    filter: ^.*CN.*$
-    use:
-      - oslook
-      - xieshunxi1
+      - ermaozi
 rules:
   - DOMAIN-SUFFIX,twitter.com,SELECT
   - DOMAIN-SUFFIX,twimg.com,SELECT
