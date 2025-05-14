@@ -10,7 +10,8 @@ proxy-providers:
     interval: 3600
     health-check:
       enable: true
-      url: http://www.gstatic.com/generate_204
+      # url: http://www.gstatic.com/generate_204
+      url: http://store.steampowered.com/
       interval: 300
   ermaozi:
     type: http
@@ -19,7 +20,7 @@ proxy-providers:
     interval: 3600
     health-check:
       enable: true
-      url: http://www.gstatic.com/generate_204
+      url: http://store.steampowered.com/
       interval: 300
 rule-providers:
   reject:
@@ -109,7 +110,7 @@ rule-providers:
 proxy-groups:
   - name: SELECT
     type: select
-    url: http://www.gstatic.com/generate_204
+    url: http://store.steampowered.com/
     interval: 3600
     use:
       - anaer
@@ -117,9 +118,21 @@ proxy-groups:
 rules:
   - DOMAIN-SUFFIX,twitter.com,SELECT
   - DOMAIN-SUFFIX,twimg.com,SELECT
+  - DOMAIN-SUFFIX,kemono.su,SELECT
+  - DOMAIN-SUFFIX,coomer.su,SELECT
+  # - DOMAIN-SUFFIX,pages.dev,SELECT
+  # - DOMAIN-SUFFIX,steampowered.com,SELECT
+  # - DOMAIN-SUFFIX,steamstatic.com,SELECT
   - DOMAIN-KEYWORD,tiktok,SELECT
   - DOMAIN,cdn.jsdelivr.net,DIRECT
-  - DOMAIN-SUFFIX,bing.com,SELECT
+  # - DOMAIN,gofile.io,SELECT
+  # - DOMAIN,api.gofile.io,SELECT
+  # - DOMAIN-SUFFIX,cloudflare.com,SELECT
+  - DOMAIN,kemono.party,SELECT
+  # - DOMAIN-SUFFIX,spotify.com,SELECT
+  # - DOMAIN,buzzheavier.com,SELECT
+  - DOMAIN-SUFFIX,gradio.app,SELECT
+  - DOMAIN-SUFFIX,rutracker.org,SELECT
   - RULE-SET,applications,DIRECT
   - DOMAIN,clash.razord.top,DIRECT
   - DOMAIN,yacd.haishan.me,DIRECT
